@@ -3,6 +3,7 @@ package day02;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -18,32 +19,78 @@ public class Day02 {
 
         int totalScore = 0;
         for (String game: linesArray) {
-            int c = 0;
+            int score = 0;
 
             String them = game.split( " ")[0];
             String me = game.split( " ")[1];
 
             if (Objects.equals(me, "X")) {
-                c += 1;
+                score += 1;
             } else if (Objects.equals(me, "Y")) {
-                c += 2;
+                score += 2;
             } else if (Objects.equals(me, "Z")) {
-                c += 3;
+                score += 3;
             }
 
             me = hashMap.get(me);
 
             if (Objects.equals(them, me)) {
-                c += 3;
+                score += 3;
             } else if (Objects.equals(them, "A") && Objects.equals(me, "B")) {
-                c += 6;
+                score += 6;
             } else if (Objects.equals(them, "B") && Objects.equals(me, "C")) {
-                c += 6;
+                score += 6;
             } else if (Objects.equals(them, "C") && Objects.equals(me, "A")) {
-                c += 6;
+                score += 6;
             }
 
-            totalScore += c;
+            totalScore += score;
+        }
+
+        return totalScore;
+    }
+
+    public static int getStrategyPartTwo() throws IOException {
+        List<String> linesList = Files.readAllLines(Paths.get("./inputs/day02/input.txt"));
+        String[] linesArray = linesList.toArray(new String[0]);
+        List<String> values = new ArrayList<>();
+        values.add("A");
+        values.add("B");
+        values.add("C");
+
+        int totalScore = 0;
+        for (String game: linesArray) {
+            int score = 0;
+
+            String them = game.split( " ")[0];
+            String me = game.split( " ")[1];
+
+            if (Objects.equals(me, "X")) {
+                score += 0;
+            }
+            if (Objects.equals(me, "Y")) {
+                score += 3;
+            }
+            if (Objects.equals(me, "Z")) {
+                score += 6;
+            }
+
+            int more = values.indexOf(them) + 1;
+
+            if (Objects.equals(me, "X")) {
+                more -= 1;
+            }
+            if (Objects.equals(me, "Z")) {
+                more += 1;
+            }
+            more = more % 3;
+            score += more;
+
+            if (more == 0) {
+                score += 3;
+            }
+
+            totalScore += score;
         }
 
         return totalScore;
@@ -51,5 +98,6 @@ public class Day02 {
 
     public static void main(String[] args) throws IOException {
         System.out.println(getStrategy());
+        System.out.println(getStrategyPartTwo());
     }
 }
