@@ -3,16 +3,13 @@ package day02;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Day02 {
     public static int getStrategy() throws IOException {
         List<String> linesList = Files.readAllLines(Paths.get("./inputs/day02/input.txt"));
         String[] linesArray = linesList.toArray(new String[0]);
-        HashMap<String, String> hashMap = new HashMap<>();
+        Map<String, String> hashMap = new HashMap<>();
         hashMap.put("X", "A");
         hashMap.put("Y", "B");
         hashMap.put("Z", "C");
